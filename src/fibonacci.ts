@@ -3,31 +3,25 @@ export const computeFibonacciNumber = (position: number, recursion: boolean = fa
         return recursiveFibonacci(position);
     }
 
-    let notNullPosition = position;
-    if (notNullPosition === null) {
-        notNullPosition = 1;
-    }
-
-    if (notNullPosition < 0) {
-        return computeNegativeFibonacci(notNullPosition);
-    }
-
-    if (notNullPosition <= 2) {
+    if (position === null || position === 1 || position === 2) {
         return 1;
-
     }
 
-    let i = 1;
-    let j = 1;
+    if (position < 0) {
+        return computeNegativeFibonacci(position);
+    }
+
+    let smallFibonacciNumber = 1;
+    let largeFibonacciNumber = 1;
 
     let currentPosition = 2;
-    while (currentPosition < notNullPosition) {
-        const temp = i;
-        i = j;
-        j += temp;
+    while (currentPosition < position) {
+        const nextFibonacciNumber = smallFibonacciNumber + largeFibonacciNumber;
+        smallFibonacciNumber = largeFibonacciNumber;
+        largeFibonacciNumber = nextFibonacciNumber;
         currentPosition++;
     }
-    return j;
+    return largeFibonacciNumber;
 };
 
 const computeNegativeFibonacci = (position: number): number => {
